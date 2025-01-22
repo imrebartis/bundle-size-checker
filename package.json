@@ -6,22 +6,48 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky",
+    "test": "pnpm run test:bundle-size",
+    "test:bundle-size": "bundlewatch"
   },
   "dependencies": {
+    "next": "15.1.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.5"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "bundlewatch": "^0.4.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.5",
-    "@eslint/eslintrc": "^3"
+    "husky": "^9.1.7",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "bundlewatch": {
+    "files": [
+      {
+        "path": ".next/static/chunks/**/*.js",
+        "maxSize": "100kB"
+      },
+      {
+        "path": ".next/static/css/**/*.css",
+        "maxSize": "10kB"
+      },
+      {
+        "path": ".next/server/**/*.js",
+        "maxSize": "100kB"
+      }
+    ],
+    "ci": {
+      "trackBranches": [
+        "main"
+      ]
+    }
   }
 }
